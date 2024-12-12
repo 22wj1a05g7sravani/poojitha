@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version Control Simulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .version-history {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .version {
+            background-color: #e3f2fd;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .version h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .version p {
+            margin: 5px 0;
+        }
+        .add-version {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Version Management System</h1>
+
+    <div class="version-history" id="version-history">
+        <h2>Version History</h2>
+
+        <!-- Sample Version -->
+        <div class="version" id="version-1">
+            <h3>Version 1.0</h3>
+            <p><strong>Changes:</strong> Initial version of the code created.</p>
+            <p><strong>Date:</strong> 2024-12-12</p>
+        </div>
+    </div>
+
+    <h3>Add a New Version</h3>
+    <textarea id="new-version-note" placeholder="Enter new version description" rows="4" cols="50"></textarea><br><br>
+    <button class="add-version" onclick="addVersion()">Add Version</button>
+
+    <script>
+        let versionCount = 1;  // Track the current version number
+
+        function addVersion() {
+            const versionNote = document.getElementById('new-version-note').value;
+            if (versionNote.trim() === "") {
+                alert("Please enter a description for the version.");
+                return;
+            }
+
+            versionCount++;  // Increment version number
+            const versionHistory = document.getElementById('version-history');
+
+            const newVersionDiv = document.createElement('div');
+            newVersionDiv.classList.add('version');
+            newVersionDiv.id = 'version-' + versionCount;
+
+            const versionTitle = document.createElement('h3');
+            versionTitle.textContent = 'Version ' + versionCount;
+
+            const versionChanges = document.createElement('p');
+            versionChanges.innerHTML = `<strong>Changes:</strong> ${versionNote}`;
+
+            const versionDate = document.createElement('p');
+            const currentDate = new Date().toISOString().split('T')[0];  // Get current date in YYYY-MM-DD format
+            versionDate.innerHTML = `<strong>Date:</strong> ${currentDate}`;
+
+            newVersionDiv.appendChild(versionTitle);
+            newVersionDiv.appendChild(versionChanges);
+            newVersionDiv.appendChild(versionDate);
+
+            versionHistory.appendChild(newVersionDiv);
+
+            // Clear textarea for next version entry
+            document.getElementById('new-version-note').value = "";
+        }
+    </script>
+
+</body>
+</html>
